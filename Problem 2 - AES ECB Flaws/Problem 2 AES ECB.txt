@@ -1,0 +1,37 @@
+
+/////////////////////////////////////////////
+//
+// Sam Beaulieu
+// COMS 4187: Security Architecture and Engineering
+//
+// Homework 3: Problem 2
+//
+//////////////////////////////////////////////
+
+
+The original plaintext is:
+“you fail to plan,  which means, you plan to fail”  
+
+And its AES ECB cipher text in hex is:
+16fe5ba9e7d12e9a45b32ee1c49130c40cd2bb9592493f8c1b38323f752786e7617ed108bdc07e21d75e8f0c8a6f2c2e
+
+Since we know that the input plaintext is 48 characters (each 1 byte) and AES ECB has a block size of 128 bits or 16 bytes, we know that the input text was encrypted in 3 blocks (48/16=3).
+
+Since we known that identical plaintext = identical cipher blocks for AES ECB and that every block is encrypted individually, we know that the cipher text also has three output blocks. If the cipher text is split in 3, we get 3 blocks of 32 characters (96 / 3 = 32). From here we know that, for the key used:
+
+		
+you fail to plan = 16fe5ba9e7d12e9a45b32ee1c49130c4
+,  which means,  = 0cd2bb9592493f8c1b38323f752786e7
+you plan to fail = 617ed108bdc07e21d75e8f0c8a6f2c2e
+
+
+Therefore, if we want the cipher text for the phrase "you plan to fail,  which means, you plan to fail" the cipher blocks must simply be rearranged like so:
+
+you plan to fail = 617ed108bdc07e21d75e8f0c8a6f2c2e
+,  which means,  = 0cd2bb9592493f8c1b38323f752786e7
+you fail to plan = 16fe5ba9e7d12e9a45b32ee1c49130c4
+
+Combining them, we get the final cipher text for "you plan to fail,  which means, you plan to fail":
+
+617ed108bdc07e21d75e8f0c8a6f2c2e0cd2bb9592493f8c1b38323f752786e716fe5ba9e7d12e9a45b32ee1c49130c4
+
